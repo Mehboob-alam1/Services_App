@@ -106,7 +106,7 @@ public class MainFragment extends Fragment {
 //                        Toast.makeText(StartScreen.this, ""+data, Toast.LENGTH_SHORT).show();
                         list.add(new Slider(imageLink, imageUrl, pushId));
                     }
-                    adapter = new SliderAdapter(list,getActivity().getApplicationContext());
+                    adapter = new SliderAdapter(list,getContext());
                     binding.imageSliderMain.setSliderAdapter(adapter);
                     setSlider();
                 }
