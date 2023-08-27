@@ -72,6 +72,11 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+
+        binding.txtSignIn.setOnClickListener(view -> {
+            startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+            finish();
+        });
     }
 
     private void updateUI(FirebaseUser user) {

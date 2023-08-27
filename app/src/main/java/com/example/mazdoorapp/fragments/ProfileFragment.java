@@ -99,7 +99,24 @@ String hourlyCharges;
         databaseReference = FirebaseDatabase.getInstance().getReference("userInfo");
         storageReference = FirebaseStorage.getInstance().getReference("userInfo");
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        binding.approvallayout.btnContactAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String contact = "+92 312 9700730"; // use country code with your phone number
+                String url = "https://api.whatsapp.com/send?phone=" + contact;
+                try {
+                    PackageManager pm = getActivity().getPackageManager();
+                    pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                } catch (PackageManager.NameNotFoundException e) {
+                    Toast.makeText(getActivity(), "Whatsapp app not installed in your phone", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
 
+            }
+        });
         Toast.makeText(getContext(), "" + userId, Toast.LENGTH_SHORT).show();
 
         if (sessionManager.fetchService() != null) {
@@ -122,7 +139,7 @@ String hourlyCharges;
                             binding.approvallayout.btnContactAdmin.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    String contact = "+92 323 8858040"; // use country code with your phone number
+                                    String contact = "+92 312 9700730"; // use country code with your phone number
                                     String url = "https://api.whatsapp.com/send?phone=" + contact;
                                     try {
                                         PackageManager pm = getActivity().getPackageManager();
