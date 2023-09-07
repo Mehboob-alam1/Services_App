@@ -53,6 +53,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -117,7 +118,6 @@ String hourlyCharges;
 
             }
         });
-        Toast.makeText(getContext(), "" + userId, Toast.LENGTH_SHORT).show();
 
         if (sessionManager.fetchService() != null) {
             databaseReference.child(sessionManager.fetchService()).child(userId).addValueEventListener(new ValueEventListener() {
@@ -193,11 +193,10 @@ String hourlyCharges;
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }else{
-            Toast.makeText(getContext(), "Session Manager Value is null", Toast.LENGTH_SHORT).show();
+
         }
 
         binding.profileLayout.btneditProfile.setOnClickListener(new View.OnClickListener() {
@@ -208,10 +207,10 @@ String hourlyCharges;
 
             }
         });
+if(sessionManager.fetchService() !=null && userId !=null) {
+    getAdminMessage();
 
-        getAdminMessage();
-
-
+}
         return binding.getRoot();
     }
 
@@ -378,6 +377,18 @@ String hourlyCharges;
                 binding.approvallayout.getRoot().setVisibility(View.VISIBLE);
                 binding.editprofileLayout.getRoot().setVisibility(View.GONE);
                 binding.profileLayout.getRoot().setVisibility(View.GONE);
+
+                FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("userInfo");
+                        databaseReference.child(model.getServiceType()).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child("token").setValue(s);
+
+
+
+                    }
+                });
                 Intent i = new Intent(requireContext(), NoticifactionBroadCast.class);
               getContext().sendBroadcast(i);
             }

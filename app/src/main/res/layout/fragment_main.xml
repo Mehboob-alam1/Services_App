@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp"
-                android:text="Mazdoor App"
+                android:text="House wise solution App"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -136,7 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
-                android:text="How Madoor App Works"
+                android:text="How  App Works"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"

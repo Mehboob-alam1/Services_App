@@ -48,7 +48,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
               //  +923184382456
-                String contact = "+923184382456"; // use country code with your phone number
+                String contact = "+92 312 9700730"; // use country code with your phone number
 
                 String url = "https://api.whatsapp.com/send?phone=" + contact;
                 try {
