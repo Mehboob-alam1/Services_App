@@ -15,6 +15,7 @@ public class Slider {
         this.pushId = pushId;
     }
 
+
     public String getImageUrl() {
         return imageUrl;
     }

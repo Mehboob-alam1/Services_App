@@ -1,5 +1,7 @@
 package com.example.mazdoorapp;
 
+import static com.example.mazdoorapp.Utils.showSnackBar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.example.mazdoorapp.fragments.AboutFragment;
@@ -18,6 +21,9 @@ import com.example.mazdoorapp.fragments.MainFragment;
 import com.example.mazdoorapp.fragments.ProfileFragment;
 import com.example.mazdoorapp.fragments.ServicesFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileActivity extends AppCompatActivity {
     ActivityProfileBinding binding;
@@ -43,6 +49,38 @@ public class ProfileActivity extends AppCompatActivity {
         Toast.makeText(this, ""+name, Toast.LENGTH_SHORT).show();
 
 
+        binding.switchAvailability.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    binding.txtStatus.setText("Online");
+                    setStatus(true);
+                }else{
+                    binding.txtStatus.setText("offline");
+                    setStatus(false);
+                }
+            }
+        });
+
+
+    }
+
+    private void setStatus(boolean isStatus) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ProviderAvailability");
+
+        databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(new Available(isStatus,FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        showSnackBar(this,"Status set to " +isStatus);
+
+                    }else{
+                        showSnackBar(this,"Something went wrong");
+                    }
+                }).addOnFailureListener(e -> {
+                    showSnackBar(this,e.getLocalizedMessage());
+                });
     }
 
     @Override
