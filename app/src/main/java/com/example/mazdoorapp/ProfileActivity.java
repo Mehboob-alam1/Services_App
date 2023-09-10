@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
@@ -37,6 +38,11 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+        binding.btnOrders.setOnClickListener(view -> {
+
+ startActivity(new Intent(ProfileActivity.this,BookingActivity.class));
+
+        });
 
       binding.navigation.setOnNavigationItemSelectedListener(selectedListener);
 

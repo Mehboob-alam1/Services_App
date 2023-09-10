@@ -178,7 +178,7 @@ String hourlyCharges;
                             binding.profileLayout.txtphoneNumberProfile.setText("Phone number "+data.getPhonenumber());
                             binding.profileLayout.txtusernameProfile.setText("Name " + data.getName());
 
-                            binding.profileLayout.txthourlyChargesProfile.setText("Charges " +data.getHourlyCharges());
+
                             userTypeD = data.getUserType();
 
 
@@ -367,7 +367,7 @@ if(sessionManager.fetchService() !=null && userId !=null) {
         final DatabaseReference filePath;
         filePath = databaseReference.child(serviceType);
 
-        model = new UserInfoModel(downloadUrl, userName, phoneNumber, city, description, latitude, longitude, "Provider", serviceType, userId,hourlyCharges, false);
+        model = new UserInfoModel(downloadUrl, userName, phoneNumber, city, description, latitude, longitude, "Provider", serviceType, userId,false,"", false,"","","");
 
         filePath.child(userId).setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
