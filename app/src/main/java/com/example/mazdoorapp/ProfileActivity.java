@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Toast;
@@ -149,4 +150,33 @@ public class ProfileActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+
+
+            case R.id.menu_logout:
+                logout();
+                break;
+
+
+        }
+
+        return true;
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
+        finishAffinity();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+
+
+        return true;
+    }
 }
